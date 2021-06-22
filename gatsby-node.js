@@ -1,7 +1,31 @@
-/**
- * Implement Gatsby's Node APIs in this file.
- *
- * See: https://www.gatsbyjs.com/docs/node-apis/
- */
+exports.createPages = async({actions, graphql, reporter})=>{
+    const resultado = await graphql(`
+    query{
+        allDatoCmsStock{
+            nodes{
+            slug
+          }
+        }
+        }
+    `)
 
-// You can delete this file if you're not using it
+    // console.log(resultado.data.allDatoCmsStock.nodes)
+
+
+    if(resultado.errors){
+        reporter.panic('No hubo resultado', resultado.errors)
+    }
+
+    const productos = resultado.data.allDatoCmsStock.nodes;
+
+    productos.forEach(producto => {
+        actions.createPage({
+            path: producto.slug,
+            component: require.resolve('./src/components/tipos.js'),
+            context:{
+                slug: producto.slug
+            }
+        })
+    });
+
+}

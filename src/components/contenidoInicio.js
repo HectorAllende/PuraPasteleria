@@ -2,7 +2,7 @@ import React from 'react';
 import {graphql, useStaticQuery} from 'gatsby'
 import Image from 'gatsby-image'
 import styled from '@emotion/styled'
-import {css} from '@emotion/react'
+
 
 const ContenidoInicio = () => {
 
@@ -37,7 +37,9 @@ const ContenidoInicio = () => {
 
     }
     p{
-        line-height: 3;
+        font-size: 2.5rem;
+        line-height: 1.5;
+        margin-top: 7rem;
       
     }
 `
@@ -56,10 +58,7 @@ const { imagen, contenido}= informacion.allDatoCmsPagina.nodes[0]
        
         
         <TextoInicio>
-            <p
-                css={css`
-                    font-size: 2.5rem;
-                `}
+            <p        
             >{contenido}</p>
             <Image
                 fluid={imagen.fluid}
